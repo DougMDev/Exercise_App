@@ -20,7 +20,8 @@ const NewExpense = (props) => {
   const stopEditingHandler = () => {
     setEditing(false);
   };
-
+  // When isEditing is False, Button appears to add new expense.
+  // When clicked the state is changed, hiding it. Expense form appears as isEditing is True.
   return (
     <div className="new-expense">
       {!isEditing && (
