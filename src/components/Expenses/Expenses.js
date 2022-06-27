@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import ExpenseItem from "./ExpenseItem";
 import Card from "../UI/Card";
 import ExpenseFilter from "./ExpenseFilter";
 import "./Expenses.css";
+import ExpensesList from "./ExpensesList";
 
 const Expenses = (props) => {
   //2022 is set by Default, this doesnt affect the Front End view of 2022
   const [filteredYear, setFilteredYear] = useState("2022");
 
+  //onSaveFilterData is where i set the prop for Expenses Filter to bring the data up (Part 2)
   const saveFilterDataHandler = (selectedYear) => {
     setFilteredYear(selectedYear);
   };
@@ -17,8 +18,6 @@ const Expenses = (props) => {
     return expense.date.getFullYear().toString() === filteredYear;
   });
 
-  //onSaveFilterData is where i set the prop for Expenses Filter to bring the data up (Part 2)
-
   return (
     <div>
       <Card className="expenses">
@@ -26,14 +25,7 @@ const Expenses = (props) => {
           selected={filteredYear}
           onSaveFilterData={saveFilterDataHandler}
         />
-        {filteredExpenses.map((expense) => (
-          <ExpenseItem
-            key={expense.id}
-            title={expense.title}
-            amount={expense.amount}
-            date={expense.date}
-          />
-        ))}
+        <ExpensesList items={filteredExpenses} />
       </Card>
     </div>
   );
