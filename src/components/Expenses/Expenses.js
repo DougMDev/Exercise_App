@@ -5,11 +5,17 @@ import ExpenseFilter from "./ExpenseFilter";
 import "./Expenses.css";
 
 const Expenses = (props) => {
+  //2022 is set by Default, this doesnt affect the Front End view of 2022
   const [filteredYear, setFilteredYear] = useState("2022");
 
   const saveFilterDataHandler = (selectedYear) => {
     setFilteredYear(selectedYear);
   };
+
+  //Returns True if date matches the filtered year
+  const filteredExpenses = props.items.filter((expense) => {
+    return expense.date.getFullYear().toString() === filteredYear;
+  });
 
   //onSaveFilterData is where i set the prop for Expenses Filter to bring the data up (Part 2)
 
@@ -20,8 +26,9 @@ const Expenses = (props) => {
           selected={filteredYear}
           onSaveFilterData={saveFilterDataHandler}
         />
-        {props.items.map((expense) => (
+        {filteredExpenses.map((expense) => (
           <ExpenseItem
+            key={expense.id}
             title={expense.title}
             amount={expense.amount}
             date={expense.date}
