@@ -1,44 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import ExpenseItem from "./ExpenseItem";
 import Card from "../UI/Card";
 import ExpenseFilter from "./ExpenseFilter";
 import "./Expenses.css";
 
-export default function Expenses(props) {
+const Expenses = (props) => {
+  const [filteredYear, setFilteredYear] = useState("2022");
 
-const [filteredYear, setFilteredYear] = useState('2022');
+  const saveFilterDataHandler = (selectedYear) => {
+    setFilteredYear(selectedYear);
+  };
 
-const saveFilterDataHandler = selectedYear => {
-  setFilteredYear(selectedYear);
-};
-
-//onSaveFilterData is where i set the prop for Expenses Filter to bring the data up (Part 2)
+  //onSaveFilterData is where i set the prop for Expenses Filter to bring the data up (Part 2)
 
   return (
     <div>
       <Card className="expenses">
-        <ExpenseFilter selected={filteredYear} onSaveFilterData={saveFilterDataHandler}/>
-        <ExpenseItem
-          title={props.expenses[0].title}
-          amount={props.expenses[0].amount}
-          date={props.expenses[0].date}
+        <ExpenseFilter
+          selected={filteredYear}
+          onSaveFilterData={saveFilterDataHandler}
         />
-        <ExpenseItem
-          title={props.expenses[1].title}
-          amount={props.expenses[1].amount}
-          date={props.expenses[1].date}
-        />
-        <ExpenseItem
-          title={props.expenses[2].title}
-          amount={props.expenses[2].amount}
-          date={props.expenses[2].date}
-        />
-        <ExpenseItem
-          title={props.expenses[3].title}
-          amount={props.expenses[3].amount}
-          date={props.expenses[3].date}
-        />
+        {props.items.map((expense) => (
+          <ExpenseItem
+            title={expense.title}
+            amount={expense.amount}
+            date={expense.date}
+          />
+        ))}
       </Card>
     </div>
   );
 };
+
+export default Expenses;
