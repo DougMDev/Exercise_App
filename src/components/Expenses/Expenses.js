@@ -3,6 +3,7 @@ import Card from "../UI/Card";
 import ExpenseFilter from "./ExpenseFilter";
 import "./Expenses.css";
 import ExpensesList from "./ExpensesList";
+import ExpensesChart from "./ExpensesChart";
 
 const Expenses = (props) => {
   //2022 is set by Default, this doesnt affect the Front End view of 2022
@@ -25,6 +26,7 @@ const Expenses = (props) => {
           selected={filteredYear}
           onSaveFilterData={saveFilterDataHandler}
         />
+        <ExpensesChart expenses={filteredExpenses} />
         <ExpensesList items={filteredExpenses} />
       </Card>
     </div>
